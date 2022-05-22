@@ -13,9 +13,10 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((authz) -> authz
-                        .anyRequest().authenticated()
-                )
+                .authorizeHttpRequests()
+                .antMatchers("/secured").authenticated()
+                .antMatchers("/not-secured").permitAll()
+                .and()
                 .httpBasic(withDefaults());
         return http.build();
     }
